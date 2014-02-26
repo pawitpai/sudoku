@@ -1,0 +1,39 @@
+<%= form_for(@sudoku) do |f| %>
+  <% if @sudoku.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sudoku.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @sudoku.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :topic %><br />
+    <%= f.text_field :topic %>
+  </div>
+<br />
+<table style="width:300px">
+<tr>
+  <td>  <%= f.text_field :column1 %></td>
+  <td>  <%= f.text_field :column2 %></td>
+  <td>  <%= f.text_field :column3 %></td>
+</tr>
+<tr>
+  <td>  <%= f.text_field :column4 %></td>
+  <td>  <%= f.text_field :column5 %></td>
+  <td>  <%= f.text_field :column6 %></td>
+</tr>
+<tr>
+  <td>  <%= f.text_field :column7 %></td>
+  <td>  <%= f.text_field :column8 %></td>
+  <td>  <%= f.text_field :column9 %></td>
+</tr>
+</table> 
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

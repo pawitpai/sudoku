@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Topic:</b>
+  <%= @sudoku.topic %>
+</p>
+<table style="width:300px">
+<tr>
+  <td>  <%=@sudoku.column1 %></td>
+  <td>  <%=@sudoku.column2 %></td>
+  <td>  <%=@sudoku.column3 %></td>
+</tr>
+<tr>
+  <td>  <%=@sudoku.column4 %></td>
+  <td>  <%=@sudoku.column5 %></td>
+  <td>  <%=@sudoku.column6 %></td>
+</tr>
+<tr>
+  <td>  <%=@sudoku.column7 %></td>
+  <td>  <%=@sudoku.column8 %></td>
+  <td>  <%=@sudoku.column9 %></td>
+</tr>
+</table> 
+
+<p>
+  <b>Result:</b>
+  <%= @sudoku_result %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_sudoku_path(@sudoku) %> |
+<%= link_to 'Back', sudokus_path %>
