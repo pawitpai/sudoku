@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20140225091404) do
   end
 
   create_table "sudokus", :force => true do |t|
-    t.string "topic"
+    t.string  "topic"
     t.integer "column1"
     t.integer "column2"
     t.integer "column3"
