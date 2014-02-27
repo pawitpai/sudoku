@@ -5,10 +5,10 @@
 #   gem 'sqlite3'
 development:
   adapter : postgresql
-  host: localhost
-  database: five_minute
-  user: pawit
-  password: 1454
+  host:   ec2-54-235-117-198.compute-1.amazonaws.com
+  database: d4uchsj1v3u5fe
+  user: vgfczyyjkfiqdx
+  password: VBIjapQKOIxJeiixjFRT9Rtv34
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
