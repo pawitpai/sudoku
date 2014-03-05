@@ -1,39 +1,46 @@
-<%= form_for(@sudoku) do |f| %>
-  <% if @sudoku.errors.any? %>
+<%= form_for(@sudoku_topic, url: sudokus_path) do |f| %>
+  <% if @sudoku_topic.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@sudoku.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h2><%= pluralize(@sudoku_topic.errors.count, "error") %> prohibited this sudoku from being saved:</h2>
 
       <ul>
-      <% @sudoku.errors.full_messages.each do |msg| %>
+      <% @sudoku_topic.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :topic %><br />
-    <%= f.text_field :topic %>
-  </div>
-<br />
-<table style="width:300px">
-<tr>
-  <td>  <%= f.text_field :column1 %></td>
-  <td>  <%= f.text_field :column2 %></td>
-  <td>  <%= f.text_field :column3 %></td>
-</tr>
-<tr>
-  <td>  <%= f.text_field :column4 %></td>
-  <td>  <%= f.text_field :column5 %></td>
-  <td>  <%= f.text_field :column6 %></td>
-</tr>
-<tr>
-  <td>  <%= f.text_field :column7 %></td>
-  <td>  <%= f.text_field :column8 %></td>
-  <td>  <%= f.text_field :column9 %></td>
-</tr>
-</table> 
 
-  <div class="actions">
+   <%= f.text_field :topic %>
+   <br>
+
+<table>
+<% @sudoku_topic.sudoku_rows.each do |row| %>
+  <%= f.fields_for(row) do |r| %>
+  <tr>
+    <% row.sudoku_columns.each do |column| %>
+      <% pp column %>
+      <%= r.fields_for(column) do |c| %>
+        <%#= c.text_field(:value) %>
+      <% end %>
+    <% end %>
+  </tr>
+  <% end %>
+<% end%> 
+</table>
+<%for i in 1..9%>
+  <%for i2 in 1..9%>
+
+              <% mystring =i.to_s+","+i2.to_s %>
+             <%=text_field_tag (i.to_s+","+i2.to_s) %>
+           
+<%
+    end
+ end
+%>
+
+
+<div class="actions">
     <%= f.submit %>
-  </div>
+</div>
 <% end %>

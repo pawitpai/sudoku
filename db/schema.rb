@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140225091404) do
+ActiveRecord::Schema.define(:version => 20140228072206) do
 
   create_table "posts", :force => true do |t|
     t.string   "title"
@@ -21,21 +21,32 @@ ActiveRecord::Schema.define(:version => 20140225091404) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "sudoku_columns", :force => true do |t|
+    t.integer "value"
+    t.integer "sudoku_row_id"
+  end
+
+  create_table "sudoku_rows", :force => true do |t|
+    t.integer "value"
+    t.integer "sudoku_topic_id"
+  end
+
   create_table "sudoku_topics", :force => true do |t|
     t.string "topic"
   end
 
   create_table "sudokus", :force => true do |t|
-    t.string  "topic"
-    t.integer "column1"
-    t.integer "column2"
-    t.integer "column3"
-    t.integer "column4"
-    t.integer "column5"
-    t.integer "column6"
-    t.integer "column7"
-    t.integer "column8"
-    t.integer "column9"
+    t.integer  "field11"
+    t.integer  "field12"
+    t.integer  "field13"
+    t.integer  "field21"
+    t.integer  "field22"
+    t.integer  "field23"
+    t.integer  "field31"
+    t.integer  "field32"
+    t.integer  "field33"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

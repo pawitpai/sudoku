@@ -25,7 +25,15 @@ class PostsController < ApplicationController
   # GET /posts/new.json
   def new
     @post = Post.new
+    @sudoku_topic=SudokuTopic.new
+    @sudoku_topic.topic="sss"
+    @sudoku_topic.save
+    SudokuRow.create(value: "1",sudoku_topic: @sudoku_topic)
 
+    @test="s"
+
+   #  @sudoku_row=SudokuRow.new
+   #   @sudoku_column=SudokuColumn.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @post }
@@ -37,13 +45,24 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def test
-  end
-
   # POST /posts
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    mystring="1,1"
+    @post.title=params[mystring]
+
+
+
+for i in 1..9
+  for i2 in 1..9
+
+
+  end
+end
+
+
+
 
     respond_to do |format|
       if @post.save
@@ -82,5 +101,9 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+
+  def hello
+    @t = Time.now
   end
 end

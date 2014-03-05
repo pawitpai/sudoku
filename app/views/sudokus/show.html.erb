@@ -1,32 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Topic:</b>
-  <%= @sudoku.topic %>
-</p>
-<table style="width:300px">
-<tr>
-  <td>  <%=@sudoku.column1 %></td>
-  <td>  <%=@sudoku.column2 %></td>
-  <td>  <%=@sudoku.column3 %></td>
-</tr>
-<tr>
-  <td>  <%=@sudoku.column4 %></td>
-  <td>  <%=@sudoku.column5 %></td>
-  <td>  <%=@sudoku.column6 %></td>
-</tr>
-<tr>
-  <td>  <%=@sudoku.column7 %></td>
-  <td>  <%=@sudoku.column8 %></td>
-  <td>  <%=@sudoku.column9 %></td>
-</tr>
-</table> 
+<table>
+  <tr>
+    <td><%= @sudoku.field11 %></td>
+    <td><%= @sudoku.field12 %></td>
+    <td><%= @sudoku.field13 %></td>
+  </tr> 
+  <tr>
+    <td><%= @sudoku.field21 %></td>
+    <td><%= @sudoku.field22 %></td>
+    <td><%= @sudoku.field23 %></td>
+  </tr> 
+  <tr>
+    <td><%= @sudoku.field31 %></td>
+    <td><%= @sudoku.field32 %></td>
+    <td><%= @sudoku.field33 %></td>
+  </tr>
 
-<p>
-  <b>Result:</b>
-  <%= @sudoku_result %>
-</p>
-
+  <tr>
+      <% @temp = [1,2,3,4,5,6,7,8,9] %>
+      <% @c = [@sudoku.field11,@sudoku.field12,@sudoku.field13,@sudoku.field21,@sudoku.field22,@sudoku.field23,@sudoku.field31,@sudoku.field32,@sudoku.field33] %>
+      <td colspan = "3"><%='Result : ' %> <%= @c.sort == @temp %> <td>
+  </tr>
+</table>
 
 
 <%= link_to 'Edit', edit_sudoku_path(@sudoku) %> |

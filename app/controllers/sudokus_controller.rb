@@ -1,52 +1,21 @@
 class SudokusController < ApplicationController
-	  # GET /posts
-  # GET /posts.json
+  # GET /sudokus
+  # GET /sudokus.json
   def index
-    Sudoku.new
+    @sudokus = Sudoku.all
+
+
+    @sudoku_topics=SudokuTopic.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @posts }
+      format.json { render json: @sudokus }
     end
   end
 
-	def new
-    @sudoku=Sudoku.new
-        respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sudoku }
-    end
-	end			
-	
-    def create
-    @sudoku = Sudoku.new(params[:sudoku])
-
-   
-    respond_to do |format|
-      if @sudoku.save
-        format.html { redirect_to @sudoku, notice: 'Sudoku was successfully created.' }
-        format.json { render json: @sudoku, status: :created, location: @sudoku }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @sudoku.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-    def show
+  # GET /sudokus/1
+  # GET /sudokus/1.json
+  def show
     @sudoku = Sudoku.find(params[:id])
-
- sudoku_table = [[@sudoku.column1,@sudoku.column2,@sudoku.column3,@sudoku.column4,@sudoku.column5,
-  @sudoku.column6,@sudoku.column7,@sudoku.column8,@sudoku.column9]]
-sudoku_correct =[[8,3,5,4,1,6,9,2,7],
-               [2,9,6,8,5,7,4,3,1],
-               [4,1,7,2,9,3,6,5,8],
-               [5,6,9,1,3,4,7,8,2],
-               [1,2,3,6,7,8,5,4,9],
-               [7,4,8,5,2,9,1,6,3],
-               [6,5,2,7,8,1,3,9,4],
-               [9,8,1,3,4,5,2,7,6],
-               [3,7,4,9,6,2,8,1,5]]
- @sudoku_result=  CheckSudoku.new(sudoku_table).valid?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,31 +23,64 @@ sudoku_correct =[[8,3,5,4,1,6,9,2,7],
     end
   end
 
-
-  def index
-    @sudokus = Sudoku.all
+  # GET /sudokus/new
+  # GET /sudokus/new.json
+  def new
+    @sudoku_topic = SudokuTopic.new
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sudokus }
+      format.html # new.html.erb
+      format.json { render json: @sudoku_topic }
     end
   end
 
-
-  def destroy
-    @sudoku = Sudoku.find(params[:id])
-    @sudoku.destroy
-
-    respond_to do |format|
-      format.html { redirect_to sudokus_url }
-      format.json { head :no_content }
-    end
-  end
-
+  # GET /sudokus/1/edit
   def edit
     @sudoku = Sudoku.find(params[:id])
   end
 
+  # POST /sudokus
+  # POST /sudokus.json
+  def create
+    @get_sudoku_topic = SudokuTopic.new(topic: params[:sudoku_topic][:topic])
+
+    # for i in 1..9
+    #   for i2 in 1..9
+
+    #   SudokuRow.create(value: i.to_s+","+i2.to_s ,sudoku_topic: @get_sudoku_topic)
+    #   end
+    # end
+    params[:sudoku_topic][:sudoku_rows].each do |row|
+      sudoku_row = @get_sudoku_topic.sudoku_rows.build
+      row[:sudoku_columns].each do |column|
+        sudoku_row.sudoku_columns.build(value: column[:value])
+      end
+    end  
+    @get_sudoku_topic.save
+  end
+
+
+  def new
+    require 'pp'
+    @sudoku_topic=SudokuTopic.new
+    
+    (1..9).each do |row|
+      sudoku_row = @sudoku_topic.sudoku_rows.build
+      (1..9).each do |column|
+        sudoku_column = sudoku_row.sudoku_columns.build
+      end
+    end
+
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @post }
+    end
+
+  end
+
+  # PUT /sudokus/1
+  # PUT /sudokus/1.json
   def update
     @sudoku = Sudoku.find(params[:id])
 
@@ -93,65 +95,19 @@ sudoku_correct =[[8,3,5,4,1,6,9,2,7],
     end
   end
 
+  # DELETE /sudokus/1
+  # DELETE /sudokus/1.json
+  def destroy
+    @sudoku = Sudoku.find(params[:id])
+    @sudoku.destroy
 
-class CheckSudoku
-def initialize(s_arr)
-  @sudoku_arr = s_arr
-end
-
-# given 9 integers makesure that you have 1 to 9
-def valid_contents?(set)
-  set.each do |e|
-    return false unless (1..9).include?(e)
-  end
-  return true
-end
-
-# check if set has no duplicates
-def has_no_duplicates?(set)
-  set.uniq.size < set.size ? false : true
-end
-
-def valid_set?(set)
-  valid_contents?(set) &&  has_no_duplicates?(set)
-end
-
-# obtain blocks of sudoku, given a grid
-def get_blocks(s_grid)
-  blocks = []
-  s_grid.each_slice(3) do |row_set|
-    blocks_temp = [[],[],[]]
-    row_set.each do |row|
-      row.each_slice(3).with_index  do|s,i|
-        blocks_temp[i] = blocks_temp[i] + s
-      end
+    respond_to do |format|
+      format.html { redirect_to sudokus_url }
+      format.json { head :no_content }
     end
-    blocks +=  blocks_temp
-  end
-  blocks
-end
-
-
-def valid?(s_arr = @sudoku_arr)
-  #check for row validity
-  s_arr.each do |set|
-    return false unless valid_set?(set)
   end
 
-  #check for block validity
-  get_blocks(s_arr).each do |set|
-    return false unless valid_set?(set)
+  def hello
+  	@t = "Hello Test"
   end
-
-  #check column validity
-  s_arr.transpose.each do |set|
-    return false unless valid_set?(set)
-  end
-
-  true
-end
-
-end
-
-
 end

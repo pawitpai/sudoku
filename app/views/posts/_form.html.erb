@@ -23,6 +23,20 @@
     <%= f.label :published %><br />
     <%= f.check_box :published %>
   </div>
+
+<%for i in 1..9%>
+  <%for i2 in 1..9%>
+
+              <% mystring =i.to_s+","+i2.to_s %>
+             <%=text_field_tag (i.to_s+","+i2.to_s) %>
+           
+<%
+    end
+ end
+%>
+
+  
+
   <div class="actions">
     <%= f.submit %>
   </div>

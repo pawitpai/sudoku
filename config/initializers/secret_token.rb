@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-FiveMinute::Application.config.secret_token = '61b37c530a6280e47094721a98a914e72578faa5045a6e41ea490f68401ab35a05472c55be6195af41a2bd31cf7dbf53e20e53269e5c7d55a83c298136474184'
+FiveMinute::Application.config.secret_token = 'c5f20e139c1dd92a5cc25bcfd7f9c8caa910b7e31dada476e51fd280c5e5dff891f7f8a52f4f01ecd0d58cd7d451378f352fbad399f9823e7f6472e05672c4a8'
