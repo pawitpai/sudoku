@@ -41,22 +41,36 @@ class SudokusController < ApplicationController
 
   # POST /sudokus
   # POST /sudokus.json
-  def create
-    @get_sudoku_topic = SudokuTopic.new(topic: params[:sudoku_topic][:topic])
-
-    # for i in 1..9
-    #   for i2 in 1..9
-
-    #   SudokuRow.create(value: i.to_s+","+i2.to_s ,sudoku_topic: @get_sudoku_topic)
-    #   end
-    # end
-    params[:sudoku_topic][:sudoku_rows].each do |row|
-      sudoku_row = @get_sudoku_topic.sudoku_rows.build
-      row[:sudoku_columns].each do |column|
-        sudoku_row.sudoku_columns.build(value: column[:value])
-      end
-    end  
+def create
+    @get_sudoku_topic = SudokuTopic.new(params[:sudoku_topic])
     @get_sudoku_topic.save
+
+     for i in 1..9
+        @sudoku_row=SudokuRow.new
+        @sudoku_row.value=0   # must no value (wrong design)
+        @sudoku_row.sudoku_topic=@get_sudoku_topic
+        @sudoku_row.save
+       for i2 in 1..9
+
+
+        sudoku_column=SudokuColumn.new
+        sudoku_column.value=params[i.to_s+","+i2.to_s] 
+        sudoku_column.sudoku_row=@sudoku_row
+        sudoku_column.save
+       #SudokuRow.create(value: i.to_s+","+i2.to_s ,sudoku_topic: @get_sudoku_topic)
+       end
+     end
+
+    #params[:sudoku_topic][:sudoku_rows].each do |row|
+     # sudoku_row = @get_sudoku_topic.sudoku_rows.build
+      #row[:sudoku_columns].each do |column|
+      #  sudoku_row.sudoku_columns.build(value: column[:value])
+     # end
+    #end  
+    #@get_sudoku_topic.save
+
+
+
   end
 
 
