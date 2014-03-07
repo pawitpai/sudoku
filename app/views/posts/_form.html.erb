@@ -27,7 +27,7 @@
 <%for i in 1..9%>
   <%for i2 in 1..9%>
 
-              <% mystring =i.to_s+","+i2.to_s %>
+              <%# mystring =i.to_s+","+i2.to_s %>
              <%=text_field_tag (i.to_s+","+i2.to_s) %>
            
 <%
@@ -35,6 +35,15 @@
  end
 %>
 
+
+<% @sudoku_collection.all.each do |post| %>
+  puts "Post:            " + post.title
+  puts "Written by:      " + post.author.name
+  puts "Last comment on: " + post.comments.first.created_on
+
+  <%
+end
+%>
   
 
   <div class="actions">

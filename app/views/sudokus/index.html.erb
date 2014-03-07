@@ -7,7 +7,7 @@
     <th></th>
   </tr>
 
-<% @sudoku_topics.each do |sudoku_topic| %>
+<% @sudokus.each do |sudoku_topic| %>
   <tr>
       <td><%= sudoku_topic.id %></td>
     <td><%= sudoku_topic.topic %></td>
@@ -15,9 +15,9 @@
   </tr> 
   
   <tr>
-    <td><%= link_to 'Show', sudoku_topic %></td>
-    <td><%= link_to 'Edit', edit_sudoku_topic_path(sudoku_topic) %></td>
-    <td><%= link_to 'Destroy', sudoku_topic, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', sudoku_path(sudoku_topic) %></td>
+    <td><%= link_to 'Edit', edit_sudoku_path(sudoku_topic) %></td>
+    <td><%= link_to 'Destroy', sudoku_path(sudoku_topic), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

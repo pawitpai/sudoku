@@ -1,10 +1,10 @@
-<%= form_for(@sudoku_topic, url: sudokus_path) do |f| %>
-  <% if @sudoku_topic.errors.any? %>
+<%= form_for(@sudoku, url: sudokus_path) do |f| %>
+  <% if @sudoku.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@sudoku_topic.errors.count, "error") %> prohibited this sudoku from being saved:</h2>
+      <h2><%= pluralize(@sudoku.errors.count, "error") %> prohibited this sudoku from being saved:</h2>
 
       <ul>
-      <% @sudoku_topic.errors.full_messages.each do |msg| %>
+      <% @sudoku.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -15,29 +15,48 @@
    <br>
 
 <table>
-<% @sudoku_topic.sudoku_rows.each do |row| %>
-  <%= f.fields_for(row) do |r| %>
+<%# @sudoku.sudoku_rows.each do |row| %>
+  <%#= f.fields_for(row) do |r| %>
   <tr>
-    <% row.sudoku_columns.each do |column| %>
-      <% pp column %>
-      <%= r.fields_for(column) do |c| %>
+    <%# row.sudoku_columns.each do |column| %>
+    
+      <%#= r.fields_for(column) do |c| %>
         <%#= c.text_field(:value) %>
-      <% end %>
-    <% end %>
+      <%# end %>
+    <%# end %>
   </tr>
-  <% end %>
-<% end%> 
+  <%# end %>
+<%# end%> 
 </table>
-<%for i in 1..9%>
-  <%for i2 in 1..9%>
+<%#for i in 1..9%>
+  <%#for i2 in 1..9%>
 
-              <% mystring =i.to_s+","+i2.to_s %>
-             <%=text_field_tag (i.to_s+","+i2.to_s) %>
            
-<%
+             <%#=text_field_tag (i.to_s+","+i2.to_s),'12' %>
+           
+<%#
     end
  end
 %>
+
+
+<% @sudoku.sudoku_rows.each do |post| %>
+
+  <% post.sudoku_columns.each do |post2| %>
+       <%#=text_field_tag (i.to_s+","+i2.to_s),post2.value%>
+    <%
+  end
+end
+%>
+
+
+
+
+
+  <%= f.fields_for :sudoku_rows do |builder| %>
+    <%= render "row_fields", :f => builder %>
+  <% end %>
+
 
 
 <div class="actions">
